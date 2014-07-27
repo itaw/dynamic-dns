@@ -21,8 +21,11 @@ $loader = new YamlFileLoader($locator);
 /* @var $routeCollection RouteCollection */
 $routeCollection = $loader->load('routing.yml');
 
+//get request
 $request = Request::createFromGlobals();
 
+
+//dispatch
 $matcher = new UrlMatcher($routeCollection, new RequestContext());
 
 $dispatcher = new EventDispatcher();
