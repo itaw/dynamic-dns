@@ -1,0 +1,14 @@
+{
+    "name": "itaw/dynamic-dns",
+    "description": "A Dynamic DNS Server",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fweber-de",
+            "email": "florian.weber.dd@icloud.com"
+        }
+    ],
+    "require": {
+
+    }
+}
