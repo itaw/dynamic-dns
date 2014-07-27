@@ -9,6 +9,16 @@
         }
     ],
     "require": {
-
+        "symfony/routing": "2.5.2",
+        "symfony/yaml": "2.5.2",
+        "symfony/http-foundation": "2.5.2",
+        "symfony/config": "2.5.2",
+        "symfony/http-kernel": "2.5.2",
+        "symfony/event-dispatcher": "2.5.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
     }
 }
