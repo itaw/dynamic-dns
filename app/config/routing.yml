@@ -1,4 +1,7 @@
-itaw_app:
-    resource: "@itawAppBundle/Resources/config/routing.yml"
+itaw_dns:
+    resource: "@itawDnsBundle/Resources/config/routing.yml"
     prefix:   /
 
+itaw_app:
+    resource: "@itawAppBundle/Resources/config/routing.yml"
+    prefix:   /config
