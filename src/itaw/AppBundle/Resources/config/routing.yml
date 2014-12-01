@@ -1,0 +1,3 @@
+itaw_app_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: itawAppBundle:Default:index }

@@ -1,0 +1,4 @@
+itaw_app:
+    resource: "@itawAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
