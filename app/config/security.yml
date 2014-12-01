@@ -1,12 +1,38 @@
+#pattern: ^/(_(profiler|wdt)|css|images|js)/
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+        ajax_calls:
+            pattern:    ^/_wdt
+            anonymous:  ~
+        login_firewall:
+            pattern:    ^/config/login$
+            anonymous:  ~
+        main:
+            pattern: ^/config
+            form_login:
+                check_path: /config/login_check
+                login_path: /config/login
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:
+                path:   /config/logout
+                target: /
+            anonymous:    true
 
-        default:
-            anonymous: ~
+    access_control:
+        - { path: ^/config/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/config/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/config/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/config/admin/, role: ROLE_ADMIN }
+        - { path: ^/_wdt, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }

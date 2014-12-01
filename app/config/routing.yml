@@ -5,3 +5,6 @@ itaw_dns:
 itaw_app:
     resource: "@itawAppBundle/Resources/config/routing.yml"
     prefix:   /config
+
+_user_bundle:
+    resource: "@itawUserBundle/Resources/config/routing.yml"
