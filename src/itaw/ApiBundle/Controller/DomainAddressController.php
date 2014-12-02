@@ -16,6 +16,7 @@ class DomainAddressController extends Controller
      */
     public function createAction(Request $request)
     {
+        //validate
         if ($request->get('domain', '') == ''
             || $request->get('username', '') == ''
             || $request->get('password', '') == ''
@@ -23,6 +24,7 @@ class DomainAddressController extends Controller
             throw new BadRequestHttpException(sprintf('All parameters must be provided!'));
         }
 
+        //get domain
         $domain = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findOneByName(
             $request->get('domain')
         );
@@ -31,6 +33,7 @@ class DomainAddressController extends Controller
             throw new BadRequestHttpException(sprintf('The requested Domain is not configured!'));
         }
 
+        //get user
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($request->get('username'));
 
@@ -38,10 +41,12 @@ class DomainAddressController extends Controller
             throw new AuthenticationException(sprintf('Bad Username!'));
         }
 
+        //prepare password
         $encoderService = $this->get('security.encoder_factory');
         $encoder = $encoderService->getEncoder($user);
         $encodedPassword = $encoder->encodePassword($request->get('password'), $user->getSalt());
 
+        //check password
         if ($encodedPassword != $user->getPassword()) {
             throw new AuthenticationException(sprintf('Bad Password!'));
         }
