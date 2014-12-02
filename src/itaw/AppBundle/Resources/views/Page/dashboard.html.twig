@@ -6,6 +6,82 @@
 
 {% block content %}
 
-    #
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-user"></i> All Users</h3>
+                </div>
+
+                <table class="table table-striped">
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-location-arrow"></i> Current Domain</h3>
+                </div>
+
+                <div class="panel-body">
+                    <strong>{{ app.request.host }}</strong>
+                    <a class="btn btn-xs btn-success pull-right{% if app.request.host == 'localhost' %} disabled{% endif %}"
+                       href="#"><i class="fa fa-gears"></i> Configure</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-flag-checkered"></i> Domains</h3>
+                </div>
+
+                {% if domains|length() > 0 %}
+
+                    <table class="table table-striped">
+                        {% for domain in domains %}
+                            <tr>
+                                <td>{{ domain.name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                {% else %}
+
+                    <div class="panel-body">
+                        No Domains configured yet!
+                        <a class="btn btn-xs btn-success pull-right" href="#"><i class="fa fa-plus"></i> Add One!</a>
+                    </div>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-flash"></i> Access (Total)</h3>
+                </div>
+
+                <div class="panel-body">
+                    #
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 {% endblock %}
