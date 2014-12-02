@@ -1,0 +1,3 @@
+api_addresses_create:
+    path:     /create
+    defaults: { _controller: itawApiBundle:DomainAddress:create, _format: 'json' }
