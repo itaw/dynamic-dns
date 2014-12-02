@@ -1387,17 +1387,16 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v2.3.7",
-            "target-dir": "Symfony/Bundle/SwiftmailerBundle",
+            "version": "v2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/SwiftmailerBundle.git",
-                "reference": "e98defd402f72e8b54a029ba4d3ac4cb51dc3577"
+                "reference": "970b13d01871207e81d17b17ddda025e7e21e797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/e98defd402f72e8b54a029ba4d3ac4cb51dc3577",
-                "reference": "e98defd402f72e8b54a029ba4d3ac4cb51dc3577",
+                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
+                "reference": "970b13d01871207e81d17b17ddda025e7e21e797",
                 "shasum": ""
             },
             "require": {
@@ -1411,6 +1410,9 @@
                 "symfony/http-kernel": "~2.1",
                 "symfony/yaml": "~2.1"
             },
+            "suggest": {
+                "psr/log": "Allows logging"
+            },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1418,8 +1420,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Symfony\\Bundle\\SwiftmailerBundle": ""
+                "psr-4": {
+                    "Symfony\\Bundle\\SwiftmailerBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1428,19 +1430,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2014-04-05 17:15:52"
+            "time": "2014-12-01 17:44:50"
         },
         {
             "name": "symfony/symfony",
@@ -1448,12 +1448,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "5b6a95c4c2ffbf0bfc57197fd1464ba65f26518d"
+                "reference": "1c8bfeaa6c800890261ac35fc70dc17c8f7e25ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/5b6a95c4c2ffbf0bfc57197fd1464ba65f26518d",
-                "reference": "5b6a95c4c2ffbf0bfc57197fd1464ba65f26518d",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/1c8bfeaa6c800890261ac35fc70dc17c8f7e25ee",
+                "reference": "1c8bfeaa6c800890261ac35fc70dc17c8f7e25ee",
                 "shasum": ""
             },
             "require": {
@@ -1556,7 +1556,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-11-30 16:54:03"
+            "time": "2014-12-01 17:53:46"
         },
         {
             "name": "twig/extensions",
