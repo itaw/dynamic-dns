@@ -12,17 +12,43 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-user"></i> All Users</h3>
+                    <h3 class="panel-title"><i class="fa fa-user"></i> Accessors</h3>
                 </div>
 
-                <table class="table table-striped">
-                    {% for user in users %}
-                        <tr>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.email }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                {% if accessors|length() > 0 %}
+
+                    <table class="table table-striped">
+                        {% for accessor in accessors %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('accessors_object', {accessorId: accessor.id}) }}">
+                                        {{ accessor.username }}
+                                    </a>
+                                </td>
+                                <td>{{ accessor.email }}</td>
+                                <td>
+                                    {% if accessor.active %}
+                                        <span class="label label-success label-sm">Active</span>
+                                    {% else %}
+                                        <span class="label label-warning label-sm">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                {% else %}
+
+                    <div class="panel-body">
+                        No Accessors configured yet!
+                        <a class="btn btn-xs btn-success pull-right"
+                           href="{{ path('accessors_create') }}">
+                            <i class="fa fa-plus"></i>
+                            Add One!
+                        </a>
+                    </div>
+
+                {% endif %}
             </div>
 
             <div class="panel panel-default">

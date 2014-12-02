@@ -66,7 +66,7 @@ class DomainController extends Controller
             $domain
                 ->setName($request->get('name'))
                 ->setCreationDate(new \DateTime('now'))
-                ->setOpenUser($request->getUser())
+                ->setOpenUser($this->getUser())
                 ->setActive(true);
 
             //validate
@@ -104,7 +104,7 @@ class DomainController extends Controller
             $domain
                 ->setName($request->get('name'))
                 ->setEditDate(new \DateTime('now'))
-                ->setEditUser($request->getUser());
+                ->setEditUser($this->getUser());
 
             //validate
             $validator = $this->get('validator');

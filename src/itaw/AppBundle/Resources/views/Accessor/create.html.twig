@@ -1,0 +1,45 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Add Accessor{% endblock %}
+
+{% block currentPage %}accessor{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Accessor</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form role="form" method="post">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-Mail</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
+                        <input type="hidden" value="1" name="sent">
+
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

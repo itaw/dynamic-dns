@@ -23,13 +23,13 @@ class PageController extends Controller
      */
     public function dashboardAction()
     {
-        $users = $this->getDoctrine()->getRepository('itawUserBundle:User')->findAll();
+        $accessors = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findAll();
         $domains = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findAll();
 
         return $this->render(
             'itawAppBundle:Page:dashboard.html.twig',
             array(
-                'users' => $users,
+                'accessors' => $accessors,
                 'domains' => $domains
             )
         );

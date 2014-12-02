@@ -9,3 +9,7 @@ dashboard:
 domains:
     resource: "@itawAppBundle/Resources/config/Domain/routing.yml"
     prefix:   /domains
+
+accessors:
+    resource: "@itawAppBundle/Resources/config/Accessor/routing.yml"
+    prefix:   /accessors

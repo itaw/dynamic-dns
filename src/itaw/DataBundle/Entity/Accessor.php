@@ -2,16 +2,15 @@
 
 namespace itaw\DataBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Domain
+ * Accessor
  *
- * @ORM\Table("domain")
+ * @ORM\Table("accessor")
  * @ORM\Entity
  */
-class Domain
+class Accessor
 {
     /**
      * @var integer
@@ -25,9 +24,30 @@ class Domain
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-    private $name;
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
 
     /**
      * @var boolean
@@ -63,16 +83,6 @@ class Domain
     private $editUser;
 
     /**
-     * @ORM\OneToMany(targetEntity="DomainAddress", mappedBy="domain")
-     */
-    private $domainAddresses;
-
-    public function __construct()
-    {
-        $this->domainAddresses = new ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer 
@@ -83,33 +93,102 @@ class Domain
     }
 
     /**
-     * Set name
+     * Set username
      *
-     * @param string $name
-     * @return Domain
+     * @param string $username
+     * @return Accessor
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get username
      *
      * @return string 
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Accessor
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Accessor
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return Accessor
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
      * Set active
      *
      * @param boolean $active
-     * @return Domain
+     * @return Accessor
      */
     public function setActive($active)
     {
@@ -132,7 +211,7 @@ class Domain
      * Set creationDate
      *
      * @param \DateTime $creationDate
-     * @return Domain
+     * @return Accessor
      */
     public function setCreationDate($creationDate)
     {
@@ -155,7 +234,7 @@ class Domain
      * Set editDate
      *
      * @param \DateTime $editDate
-     * @return Domain
+     * @return Accessor
      */
     public function setEditDate($editDate)
     {
@@ -178,7 +257,7 @@ class Domain
      * Set openUser
      *
      * @param \itaw\UserBundle\Entity\User $openUser
-     * @return Domain
+     * @return Accessor
      */
     public function setOpenUser(\itaw\UserBundle\Entity\User $openUser = null)
     {
@@ -201,7 +280,7 @@ class Domain
      * Set editUser
      *
      * @param \itaw\UserBundle\Entity\User $editUser
-     * @return Domain
+     * @return Accessor
      */
     public function setEditUser(\itaw\UserBundle\Entity\User $editUser = null)
     {
@@ -218,38 +297,5 @@ class Domain
     public function getEditUser()
     {
         return $this->editUser;
-    }
-
-    /**
-     * Add domainAddresses
-     *
-     * @param \itaw\DataBundle\Entity\DomainAddress $domainAddresses
-     * @return Domain
-     */
-    public function addDomainAddress(\itaw\DataBundle\Entity\DomainAddress $domainAddresses)
-    {
-        $this->domainAddresses[] = $domainAddresses;
-
-        return $this;
-    }
-
-    /**
-     * Remove domainAddresses
-     *
-     * @param \itaw\DataBundle\Entity\DomainAddress $domainAddresses
-     */
-    public function removeDomainAddress(\itaw\DataBundle\Entity\DomainAddress $domainAddresses)
-    {
-        $this->domainAddresses->removeElement($domainAddresses);
-    }
-
-    /**
-     * Get domainAddresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDomainAddresses()
-    {
-        return $this->domainAddresses;
     }
 }
