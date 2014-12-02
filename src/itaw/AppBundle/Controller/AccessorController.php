@@ -4,6 +4,7 @@ namespace itaw\AppBundle\Controller;
 
 use itaw\DataBundle\Entity\Accessor;
 use itaw\Util\PasswordEncoder;
+use itaw\Util\PasswordGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -50,8 +51,9 @@ class AccessorController extends Controller
         $session = $request->getSession();
 
         if ($request->get('sent', 0) == 1) {
+            $password = PasswordGenerator::generate();
             $salt = rand(82, 6846304) . (new \DateTime('now'))->format('Ymdgis');
-            $encodedPassword = PasswordEncoder::encode($request->get('password'), $salt);
+            $encodedPassword = PasswordEncoder::encode($password, $salt);
 
             $accessor = new Accessor();
             $accessor
@@ -79,7 +81,7 @@ class AccessorController extends Controller
             $em->flush();
 
             //send info mail
-            $this->container->get('itaw.email')->sendAccessorRegistrationMail($accessor);
+            $this->get('itaw.email')->sendAccessorRegistrationMail($accessor, $password);
 
             return $this->redirectToRoute('accessors_collection');
         }
@@ -101,13 +103,16 @@ class AccessorController extends Controller
             $em->remove($accessor);
             $em->flush();
 
+            //send info mail
+            $this->get('itaw.email')->sendAccessorDeletedMail($accessor);
+
             return $this->redirectToRoute('accessors_collection');
         }
 
         return $this->render(
             'itawAppBundle:Accessor:delete.html.twig',
             array(
-                'domain' => $accessor
+                'accessor' => $accessor
             )
         );
     }

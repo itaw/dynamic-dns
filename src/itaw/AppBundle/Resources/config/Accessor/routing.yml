@@ -10,10 +10,6 @@ accessors_object:
     path:     /{accessorId}
     defaults: { _controller: itawAppBundle:Accessor:object }
 
-#accessors_update:
-#    path:     /{accessorId}/update
-#    defaults: { _controller: itawAppBundle:Accessor:update }
-
 accessors_delete:
     path:     /{accessorId}/delete
     defaults: { _controller: itawAppBundle:Accessor:delete }

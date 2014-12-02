@@ -1,0 +1,59 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Accessors{% endblock %}
+
+{% block currentPage %}accessor{% endblock %}
+
+{% block content %}
+
+    <a class="btn btn-md btn-success pull-right"
+       href="{{ path('accessors_create') }}">
+        <i class="fa fa-plus"></i>
+        Add
+    </a>
+
+    <h2>Accessors</h2>
+
+    {% if accessors|length() > 0 %}
+
+        <table class="table table-striped">
+            {% for accessor in accessors %}
+                <tr>
+                    <td>
+                        <a href="{{ path('accessors_object', {accessorId: accessor.id}) }}">{{ accessor.username }}</a>
+                    </td>
+                    <td>{{ accessor.email }}</td>
+                    <td>
+                        {% if accessor.active %}
+                            <span class="label label-success label-sm">Active</span>
+                        {% else %}
+                            <span class="label label-warning label-sm">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            <a class="btn btn-link"
+                               href="{{ path('accessors_toggle_active', {accessorId: accessor.id}) }}"
+                               title="Toggle active state">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="btn btn-link"
+                               href="{{ path('accessors_delete', {accessorId: accessor.id}) }}"
+                               title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+
+        <div class="alert alert-warning">
+            No Accessors configured yet! <a class="alert-link" href="{{ path('accessors_create') }}">Add One!</a>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

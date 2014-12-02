@@ -45,10 +45,4 @@ assetic:
     use_controller: true
 
 swiftmailer:
-    spool:     { type: memory }
-    transport: smtp
-    host:      mailtrap.io
-    username:  27074ed6de6e365e7
-    password:  881842cd59cf01
-    auth_mode: cram-md5
-    port: 2525
+    delivery_address: florian.weber.dd@icloud.com

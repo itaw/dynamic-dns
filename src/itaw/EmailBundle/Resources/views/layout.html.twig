@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            padding: 19px;
+        }
+
+        #header {
+            background-color: #DDDDDD;
+        }
+
+        #content {
+            /*margin-top: 15px;*/
+        }
+
+        h1 {
+            font-size: 18px;
+        }
+
+        h1 small {
+            font-size: 14px;
+            color: #313131;
+        }
+
+        .container-info {
+            background-color: #f4f8fa;
+            border-color: #5bc0de;
+            border-left: 2px solid;
+        }
+    </style>
+
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+
+<div class="container" id="header">
+    <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('img/dna.png') }}">
+</div>
+
+<div class="container" id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

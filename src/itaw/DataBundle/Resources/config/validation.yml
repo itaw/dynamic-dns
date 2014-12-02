@@ -2,3 +2,9 @@ itaw\DataBundle\Entity\Domain:
     properties:
         name:
             - NotBlank: ~
+itaw\DataBundle\Entity\Accessor:
+    properties:
+        username:
+            - NotBlank: ~
+        email:
+            - Email: ~

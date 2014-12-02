@@ -1,0 +1,24 @@
+{% extends 'itawEmailBundle::layout.html.twig' %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>
+        Accessor Registration
+        <small>Confirmation</small>
+    </h1>
+
+    <p>
+        A new Accessor was created by <strong>{{ accessor.openUser.username }}</strong>
+        on {{ accessor.creationDate|date('Y-m-d G:i:s') }}.
+    </p>
+
+    <div class="container container-info">
+        <strong>These are the credentials:</strong>
+        username: <strong>{{ accessor.username }}</strong><br>
+        password: <strong>{{ plainPassword }}</strong>
+    </div>
+
+{% endblock %}

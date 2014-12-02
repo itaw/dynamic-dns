@@ -18,13 +18,27 @@ class MailerService
     /**
      * @param Accessor $accessor
      */
-    public function sendAccessorRegistrationMail(Accessor $accessor)
+    public function sendAccessorRegistrationMail(Accessor $accessor, $plainPassword)
     {
         $this->sendMessage(
-            'ITAW DynDns Registration',
+            'ITAW DynDns | Registration',
             'no-reply@weber-elektronik.de',
             $accessor->getEmail(),
-            'itawAppBundle:Email:registration_complete.html.twig',
+            'itawEmailBundle:Accessor:registration_completed.html.twig',
+            array(
+                'accessor' => $accessor,
+                'plainPassword' => $plainPassword
+            )
+        );
+    }
+
+    public function sendAccessorDeletedMail(Accessor $accessor)
+    {
+        $this->sendMessage(
+            'ITAW DynDns | Accessor Deleted',
+            'no-reply@weber-elektronik.de',
+            $accessor->getEmail(),
+            'itawEmailBundle:Accessor:deleted.html.twig',
             array(
                 'accessor' => $accessor
             )
@@ -46,7 +60,7 @@ class MailerService
             ->setSubject($subject)
             ->setFrom($from)
             ->setTo($to)
-            ->setBody($body);
+            ->setBody($body, 'text/html');
 
         $this->mailer->send($message);
     }
