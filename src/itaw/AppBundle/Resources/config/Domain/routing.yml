@@ -1,0 +1,23 @@
+domains_collection:
+    path:     /
+    defaults: { _controller: itawAppBundle:Domain:collection }
+
+domains_create:
+    path:     /create
+    defaults: { _controller: itawAppBundle:Domain:create }
+
+domains_object:
+    path:     /{domainId}
+    defaults: { _controller: itawAppBundle:Domain:object }
+
+domains_update:
+    path:     /{domainId}/update
+    defaults: { _controller: itawAppBundle:Domain:update }
+
+domains_delete:
+    path:     /{domainId}/delete
+    defaults: { _controller: itawAppBundle:Domain:delete }
+
+domains_toggle_active:
+    path:     /{domainId}/toggleActive
+    defaults: { _controller: itawAppBundle:Domain:toggleActive }

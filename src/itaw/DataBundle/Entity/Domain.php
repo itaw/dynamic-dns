@@ -24,9 +24,16 @@ class Domain
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
 
     /**
      * @var \DateTime
@@ -38,9 +45,21 @@ class Domain
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="editDate", type="datetime")
+     * @ORM\Column(name="editDate", type="datetime", nullable=true)
      */
     private $editDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="itaw\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="edit_user_id", referencedColumnName="id")
+     */
+    private $openUser;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="itaw\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="open_user_id", referencedColumnName="id")
+     */
+    private $editUser;
 
     /**
      * Get id
@@ -73,6 +92,29 @@ class Domain
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Domain
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 
     /**
@@ -119,5 +161,51 @@ class Domain
     public function getEditDate()
     {
         return $this->editDate;
+    }
+
+    /**
+     * Set openUser
+     *
+     * @param \itaw\UserBundle\Entity\User $openUser
+     * @return Domain
+     */
+    public function setOpenUser(\itaw\UserBundle\Entity\User $openUser = null)
+    {
+        $this->openUser = $openUser;
+
+        return $this;
+    }
+
+    /**
+     * Get openUser
+     *
+     * @return \itaw\UserBundle\Entity\User 
+     */
+    public function getOpenUser()
+    {
+        return $this->openUser;
+    }
+
+    /**
+     * Set editUser
+     *
+     * @param \itaw\UserBundle\Entity\User $editUser
+     * @return Domain
+     */
+    public function setEditUser(\itaw\UserBundle\Entity\User $editUser = null)
+    {
+        $this->editUser = $editUser;
+
+        return $this;
+    }
+
+    /**
+     * Get editUser
+     *
+     * @return \itaw\UserBundle\Entity\User 
+     */
+    public function getEditUser()
+    {
+        return $this->editUser;
     }
 }

@@ -5,3 +5,7 @@ itaw_app_homepage:
 dashboard:
     path:     /dashboard
     defaults: { _controller: itawAppBundle:Page:dashboard }
+
+domains:
+    resource: "@itawAppBundle/Resources/config/Domain/routing.yml"
+    prefix:   /domains

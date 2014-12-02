@@ -12,7 +12,7 @@
 
     <span class="hidden" id="current-page">{% block currentPage %}{% endblock %}</span>
 
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -37,9 +37,18 @@
                             Dashboard
                         </a>
                     </li>
+                    <li id="nl-domain">
+                        <a href="{{ path('domains_collection') }}">
+                            <i class="fa fa-flag-checkered"></i>
+                            Domains
+                        </a>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+                    <p class="navbar-text hidden-xs">
+                        <span class="label label-info">{{ app.request.host }}</span>
+                    </p>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <i class="fa fa-user"></i> {{ app.user.username }}
@@ -63,6 +72,35 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+
+                        {# flash messages #}
+                        {% for flashMessage in app.session.flashbag.get('notice') %}
+                            <div class="alert alert-info">
+                                <button type="button"
+                                        class="close"
+                                        data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-danger">
+                                <button type="button"
+                                        class="close"
+                                        data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
 
                 {% block content %}
                 {% endblock %}

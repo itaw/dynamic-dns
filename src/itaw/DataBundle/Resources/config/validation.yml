@@ -1,0 +1,4 @@
+itaw\DataBundle\Entity\Domain:
+    properties:
+        name:
+            - NotBlank: ~

@@ -1,0 +1,35 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Add Domain{% endblock %}
+
+{% block currentPage %}domain{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Domain</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form role="form" method="post">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+
+                        <input type="hidden" value="1" name="sent">
+
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

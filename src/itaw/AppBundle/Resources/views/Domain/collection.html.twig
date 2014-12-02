@@ -1,0 +1,82 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Domains{% endblock %}
+
+{% block currentPage %}domain{% endblock %}
+
+{% block content %}
+
+    <a class="btn btn-md btn-success pull-right"
+       href="{{ path('domains_create') }}">
+        <i class="fa fa-plus"></i>
+        Add
+    </a>
+
+    <h2>Domains</h2>
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            {% if domains|length() > 0 %}
+
+                <table class="table table-striped">
+                    {% for domain in domains %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('domains_object', {domainId: domain.id}) }}">{{ domain.name }}</a>
+                            </td>
+                            <td>
+                                {% if domain.active %}
+                                    <span class="label label-success label-sm">Active</span>
+                                {% else %}
+                                    <span class="label label-warning label-sm">Inactive</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="pull-right">
+                                    <a class="btn btn-link"
+                                       href="{{ path('domains_toggle_active', {domainId: domain.id}) }}"
+                                       title="Toggle active state">
+                                        <i class="fa fa-refresh"></i>
+                                    </a>
+                                    <a class="btn btn-link"
+                                       href="{{ path('domains_update', {domainId: domain.id}) }}"
+                                       title="Update">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-link"
+                                       href="{{ path('domains_delete', {domainId: domain.id}) }}"
+                                       title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% else %}
+
+                <div class="alert alert-warning">
+                    No Domains configured yet! <a class="alert-link" href="{{ path('domains_create') }}">Add One!</a>
+                </div>
+
+            {% endif %}
+
+        </div>
+        <div class="col-lg-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-flash"></i> Access (Total)</h3>
+                </div>
+
+                <div class="panel-body">
+                    #
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

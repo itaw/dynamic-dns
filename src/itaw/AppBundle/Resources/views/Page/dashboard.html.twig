@@ -33,7 +33,10 @@
                 <div class="panel-body">
                     <strong>{{ app.request.host }}</strong>
                     <a class="btn btn-xs btn-success pull-right{% if app.request.host == 'localhost' %} disabled{% endif %}"
-                       href="#"><i class="fa fa-gears"></i> Configure</a>
+                       href="{{ path('domains_collection', {name: app.request.host}) }}">
+                        <i class="fa fa-gears"></i>
+                        Configure
+                    </a>
                 </div>
             </div>
 
@@ -51,7 +54,14 @@
                     <table class="table table-striped">
                         {% for domain in domains %}
                             <tr>
-                                <td>{{ domain.name }}</td>
+                                <td>
+                                    <a href="">{{ domain.name }}</a>
+                                    {% if domain.active %}
+                                        <span class="label label-success label-sm pull-right">Active</span>
+                                    {% else %}
+                                        <span class="label label-warning label-sm pull-right">Inactive</span>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>
@@ -60,7 +70,11 @@
 
                     <div class="panel-body">
                         No Domains configured yet!
-                        <a class="btn btn-xs btn-success pull-right" href="#"><i class="fa fa-plus"></i> Add One!</a>
+                        <a class="btn btn-xs btn-success pull-right"
+                           href="{{ path('domains_create') }}">
+                            <i class="fa fa-plus"></i>
+                            Add One!
+                        </a>
                     </div>
 
                 {% endif %}
