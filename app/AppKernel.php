@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new itaw\DataBundle\itawDataBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new \itaw\UserBundle\itawUserBundle(),
+            new itaw\ApiBundle\itawApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

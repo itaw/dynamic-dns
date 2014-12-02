@@ -1,3 +1,7 @@
+itaw_api:
+    resource: "@itawApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 itaw_dns:
     resource: "@itawDnsBundle/Resources/config/routing.yml"
     prefix:   /

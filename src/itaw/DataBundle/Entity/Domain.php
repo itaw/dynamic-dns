@@ -2,6 +2,7 @@
 
 namespace itaw\DataBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +61,16 @@ class Domain
      * @ORM\JoinColumn(name="open_user_id", referencedColumnName="id")
      */
     private $editUser;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DomainAddress", mappedBy="domain")
+     */
+    private $domainAddresses;
+
+    public function __construct()
+    {
+        $this->domainAddresses = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -207,5 +218,38 @@ class Domain
     public function getEditUser()
     {
         return $this->editUser;
+    }
+
+    /**
+     * Add domainAddresses
+     *
+     * @param \itaw\DataBundle\Entity\DomainAddress $domainAddresses
+     * @return Domain
+     */
+    public function addDomainAddress(\itaw\DataBundle\Entity\DomainAddress $domainAddresses)
+    {
+        $this->domainAddresses[] = $domainAddresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove domainAddresses
+     *
+     * @param \itaw\DataBundle\Entity\DomainAddress $domainAddresses
+     */
+    public function removeDomainAddress(\itaw\DataBundle\Entity\DomainAddress $domainAddresses)
+    {
+        $this->domainAddresses->removeElement($domainAddresses);
+    }
+
+    /**
+     * Get domainAddresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDomainAddresses()
+    {
+        return $this->domainAddresses;
     }
 }
