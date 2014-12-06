@@ -9,6 +9,11 @@ itaw_dns:
 itaw_app:
     resource: "@itawAppBundle/Resources/config/routing.yml"
     prefix:   /config
+    options:
+        expose: true
 
 _user_bundle:
     resource: "@itawUserBundle/Resources/config/routing.yml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

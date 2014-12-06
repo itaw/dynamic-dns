@@ -2,6 +2,7 @@
 
 namespace itaw\DataBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,6 +82,17 @@ class Accessor
      * @ORM\JoinColumn(name="edit_user_id", referencedColumnName="id")
      */
     private $editUser;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Domain", inversedBy="accessors")
+     * @ORM\JoinTable(name="accessors_domains")
+     */
+    private $domains;
+
+    public function __construct()
+    {
+        $this->domains = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -297,5 +309,38 @@ class Accessor
     public function getEditUser()
     {
         return $this->editUser;
+    }
+
+    /**
+     * Add domains
+     *
+     * @param \itaw\DataBundle\Entity\Domain $domains
+     * @return Accessor
+     */
+    public function addDomain(\itaw\DataBundle\Entity\Domain $domains)
+    {
+        $this->domains[] = $domains;
+
+        return $this;
+    }
+
+    /**
+     * Remove domains
+     *
+     * @param \itaw\DataBundle\Entity\Domain $domains
+     */
+    public function removeDomain(\itaw\DataBundle\Entity\Domain $domains)
+    {
+        $this->domains->removeElement($domains);
+    }
+
+    /**
+     * Get domains
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDomains()
+    {
+        return $this->domains;
     }
 }

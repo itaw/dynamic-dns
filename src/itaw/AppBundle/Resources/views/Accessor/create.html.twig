@@ -4,6 +4,11 @@
 
 {% block currentPage %}accessor{% endblock %}
 
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('js/accessor.create.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 
     <div class="row">
@@ -27,11 +32,53 @@
                         </div>
 
                         <input type="hidden" value="1" name="sent">
+                        <input type="hidden" name="domains" id="input-domains">
 
                         <button type="submit" class="btn btn-success">Add</button>
                     </form>
 
                 </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Link with Domains</h3>
+                </div>
+
+                {% if domains|length() > 0 %}
+
+                    <table class="table table-striped" id="table-domains">
+                        {% for domain in domains %}
+                            <tr>
+                                <td class="td-cb">
+                                    <input class="cb-accessor-sel-domain" type="checkbox" data-id="{{ domain.id }}">
+                                </td>
+                                <td>
+                                    {{ domain.name }}
+                                </td>
+                                <td>
+                                    {% if domain.active %}
+                                        <span class="label label-success label-sm">Active</span>
+                                    {% else %}
+                                        <span class="label label-warning label-sm">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                {% else %}
+
+                    <div class="panel-body">
+                        No Domains configured yet!
+                        {#<a class="btn btn-xs btn-success pull-right fbtn-add-domain"
+                           href="#" data-toggle="modal" data-target="#modal-add-domain">
+                            <i class="fa fa-plus"></i>
+                            Add One!
+                        </a>#}
+                    </div>
+
+                {% endif %}
             </div>
 
         </div>

@@ -7,6 +7,7 @@ use itaw\Util\PasswordEncoder;
 use itaw\Util\PasswordGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AccessorController extends Controller
 {
@@ -35,7 +36,7 @@ class AccessorController extends Controller
         $accessor = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findOneById($accessorId);
 
         return $this->render(
-            'itawAppBundle:Domain:Accessor.html.twig',
+            'itawAppBundle:Accessor:object.html.twig',
             array(
                 'accessor' => $accessor
             )
@@ -49,6 +50,7 @@ class AccessorController extends Controller
     public function createAction(Request $request)
     {
         $session = $request->getSession();
+        $domains = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findBy(array('active' => true));
 
         if ($request->get('sent', 0) == 1) {
             $password = PasswordGenerator::generate();
@@ -65,6 +67,23 @@ class AccessorController extends Controller
                 ->setPassword($encodedPassword)
                 ->setUsername($request->get('username'));
 
+            //link domains
+            if ($request->get('domains') != '') {
+                $domainIds = explode('|', $request->get('domains'));
+
+                foreach ($domainIds as $domainId) {
+                    $domain = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findOneById($domainId);
+
+                    if (!$domain) {
+                        throw new BadRequestHttpException(
+                            sprintf('The Domain with the id %s does not exist!', $domainId)
+                        );
+                    }
+
+                    $accessor->addDomain($domain);
+                }
+            }
+
             //validate
             $validator = $this->get('validator');
             $errors = $validator->validate($accessor);
@@ -73,7 +92,12 @@ class AccessorController extends Controller
                     $session->getFlashBag()->add('error', $error);
                 }
 
-                return $this->render('itawAppBundle:Accessor:create.html.twig');
+                return $this->render(
+                    'itawAppBundle:Accessor:create.html.twig',
+                    array(
+                        'domains' => $domains
+                    )
+                );
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -86,7 +110,12 @@ class AccessorController extends Controller
             return $this->redirectToRoute('accessors_collection');
         }
 
-        return $this->render('itawAppBundle:Accessor:create.html.twig');
+        return $this->render(
+            'itawAppBundle:Accessor:create.html.twig',
+            array(
+                'domains' => $domains
+            )
+        );
     }
 
     /**

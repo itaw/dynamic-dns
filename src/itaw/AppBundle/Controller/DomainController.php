@@ -5,6 +5,7 @@ namespace itaw\AppBundle\Controller;
 use itaw\DataBundle\Entity\Domain;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DomainController extends Controller
 {
@@ -61,6 +62,8 @@ class DomainController extends Controller
     {
         $session = $request->getSession();
 
+        $ajax = $request->get('ajax', 0);
+
         if ($request->get('sent', 0) == 1) {
             $domain = new Domain();
             $domain
@@ -77,14 +80,41 @@ class DomainController extends Controller
                     $session->getFlashBag()->add('error', $error);
                 }
 
-                return $this->render('itawAppBundle:Domain:create.html.twig');
+                if ($ajax == 0) {
+                    return $this->render('itawAppBundle:Domain:create.html.twig');
+                }
+
+                $response = new Response(
+                    json_encode(
+                        array(
+                            'status' => 'error',
+                            'errors' => $errors
+                        )
+                    )
+                );
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
             }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($domain);
             $em->flush();
 
-            return $this->redirectToRoute('domains_collection');
+            if ($ajax == 0) {
+                return $this->redirectToRoute('domains_collection');
+            }
+
+            $response = new Response(
+                json_encode(
+                    array(
+                        'status' => 'success'
+                    )
+                )
+            );
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
         }
 
         return $this->render('itawAppBundle:Domain:create.html.twig');

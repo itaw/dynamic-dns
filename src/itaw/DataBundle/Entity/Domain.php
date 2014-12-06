@@ -67,9 +67,15 @@ class Domain
      */
     private $domainAddresses;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Accessor", mappedBy="domains")
+     */
+    private $accessors;
+
     public function __construct()
     {
         $this->domainAddresses = new ArrayCollection();
+        $this->accessors = new ArrayCollection();
     }
 
     /**
@@ -251,5 +257,38 @@ class Domain
     public function getDomainAddresses()
     {
         return $this->domainAddresses;
+    }
+
+    /**
+     * Add accessors
+     *
+     * @param \itaw\DataBundle\Entity\Accessor $accessors
+     * @return Domain
+     */
+    public function addAccessor(\itaw\DataBundle\Entity\Accessor $accessors)
+    {
+        $this->accessors[] = $accessors;
+
+        return $this;
+    }
+
+    /**
+     * Remove accessors
+     *
+     * @param \itaw\DataBundle\Entity\Accessor $accessors
+     */
+    public function removeAccessor(\itaw\DataBundle\Entity\Accessor $accessors)
+    {
+        $this->accessors->removeElement($accessors);
+    }
+
+    /**
+     * Get accessors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccessors()
+    {
+        return $this->accessors;
     }
 }

@@ -16,9 +16,22 @@
     </p>
 
     <div class="container container-info">
-        <strong>These are the credentials:</strong>
+        <strong>These are the credentials:</strong><br>
         username: <strong>{{ accessor.username }}</strong><br>
         password: <strong>{{ plainPassword }}</strong>
     </div>
+
+    {% if accessor.domains|length() > 0 %}
+        <div class="container container-info">
+            <strong>Your Accessor was linked with following Domains:</strong><br>
+
+            <ul>
+                {% for domain in accessor.domains %}
+                    <li>{{ domain.name }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    {% endif %}
 
 {% endblock %}

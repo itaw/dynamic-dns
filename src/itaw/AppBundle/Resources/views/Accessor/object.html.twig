@@ -1,11 +1,56 @@
 {% extends 'itawAppBundle::layout.html.twig' %}
 
-{% block title %}{{ parent() }} &middot; Domains{% endblock %}
+{% block title %}{{ parent() }} &middot; Accessor '{{ accessor.username }}'{% endblock %}
 
-{% block currentPage %}domain{% endblock %}
+{% block currentPage %}accessor{% endblock %}
 
 {% block content %}
 
-    #
+    <h2>{{ accessor.username }}</h2>
+
+    <h4>{{ accessor.email }}</h4>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="btn btn-xs btn-success pull-right" href="#">
+                <i class="fa fa-link"></i> Link
+            </a>
+            <h3 class="panel-title">
+                Linked Domains
+            </h3>
+        </div>
+
+        {% if accessor.domains|length() > 0 %}
+
+            <table class="table table-striped" id="table-domains">
+                {% for domain in accessor.domains %}
+                    <tr>
+                        <td>
+                            {{ domain.name }}
+                        </td>
+                        <td>
+                            {% if domain.active %}
+                                <span class="label label-success label-sm">Active</span>
+                            {% else %}
+                                <span class="label label-warning label-sm">Inactive</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+
+            <div class="panel-body">
+                No Domains linked yet!
+                <a class="btn btn-xs btn-success pull-right"
+                   href="#">
+                    <i class="fa fa-plus"></i>
+                    Add One!
+                </a>
+            </div>
+
+        {% endif %}
+    </div>
 
 {% endblock %}
