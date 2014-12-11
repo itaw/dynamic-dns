@@ -1,0 +1,30 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Unlink Domain{% endblock %}
+
+{% block currentPage %}accessor{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Unlink Domain <strong>{{ domain.name }}</strong> from <strong>{{ accessor.username }}</strong></h3>
+                </div>
+                <div class="panel-body">
+
+                    <form role="form" method="post">
+                        <input type="hidden" value="1" name="sent">
+
+                        <button type="submit" class="btn btn-danger">Unlink</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

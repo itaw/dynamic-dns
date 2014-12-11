@@ -1,0 +1,38 @@
+{% extends 'itawAppBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} &middot; Accessor Link Domain{% endblock %}
+
+{% block currentPage %}accessor{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+
+            <h2>Link Accessor <strong>{{ accessor.username }}</strong></h2>
+
+            <div class="panel panel-info">
+                <div class="panel-body">
+
+                    <form role="form" method="post">
+                        <div class="form-group">
+                            <label for="domain">Domain</label>
+                            <select id="domain" name="domain" class="form-control">
+                                {% for domain in domains %}
+                                    <option value="{{ domain.id }}">{{ domain.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <input type="hidden" value="1" name="sent">
+
+                        <button type="submit" class="btn btn-info"><i class="fa fa-link"></i> Link</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

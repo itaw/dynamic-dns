@@ -1,0 +1,7 @@
+accessors_domains_link:
+    path:     /link
+    defaults: { _controller: itawAppBundle:Accessor:linkDomain }
+
+accessors_domains_unlink:
+    path:     /{domainId}/unlink
+    defaults: { _controller: itawAppBundle:Accessor:unlinkDomain }

@@ -1,0 +1,31 @@
+{% extends 'itawEmailBundle::layout.html.twig' %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>
+        Accessor Domain UnLink
+        <small>Notice</small>
+    </h1>
+
+    <p>
+        The Domain <strong>{{ domain.name }}</strong> was unlinked from your Accessor
+        <strong>{{ accessor.username }}</strong>
+    </p>
+
+    {% if accessor.domains|length() > 0 %}
+        <div class="container container-info">
+            <strong>Your Accessor now has following links in total:</strong><br>
+
+            <ul>
+                {% for domain in accessor.domains %}
+                    <li>{{ domain.name }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    {% endif %}
+
+{% endblock %}

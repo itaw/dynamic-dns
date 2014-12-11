@@ -17,3 +17,7 @@ accessors_delete:
 accessors_toggle_active:
     path:     /{accessorId}/toggleActive
     defaults: { _controller: itawAppBundle:Accessor:toggleActive }
+
+accessors_domains:
+    resource: "@itawAppBundle/Resources/config/Accessor/Domain/routing.yml"
+    prefix:   /{accessorId}/domains

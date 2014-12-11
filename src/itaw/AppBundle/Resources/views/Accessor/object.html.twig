@@ -6,15 +6,17 @@
 
 {% block content %}
 
+    <a class="btn btn-success pull-right"
+       href="{{ path('accessors_domains_link', {accessorId: accessor.id}) }}">
+        <i class="fa fa-link"></i> Link Domain
+    </a>
+
     <h2>{{ accessor.username }}</h2>
 
     <h4>{{ accessor.email }}</h4>
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a class="btn btn-xs btn-success pull-right" href="#">
-                <i class="fa fa-link"></i> Link
-            </a>
             <h3 class="panel-title">
                 Linked Domains
             </h3>
@@ -35,6 +37,12 @@
                                 <span class="label label-warning label-sm">Inactive</span>
                             {% endif %}
                         </td>
+                        <td>
+                            <a class="btn btn-link pull-right"
+                               href="{{ path('accessors_domains_unlink', {accessorId: accessor.id, domainId: domain.id}) }}">
+                                <i class="fa fa-unlink"></i>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
@@ -46,7 +54,7 @@
                 <a class="btn btn-xs btn-success pull-right"
                    href="#">
                     <i class="fa fa-plus"></i>
-                    Add One!
+                    Link One!
                 </a>
             </div>
 

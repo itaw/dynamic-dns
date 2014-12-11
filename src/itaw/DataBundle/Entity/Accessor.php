@@ -97,7 +97,7 @@ class Accessor
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,7 +120,7 @@ class Accessor
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -143,7 +143,7 @@ class Accessor
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -166,7 +166,7 @@ class Accessor
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -189,7 +189,7 @@ class Accessor
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
@@ -212,7 +212,7 @@ class Accessor
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -235,7 +235,7 @@ class Accessor
     /**
      * Get creationDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationDate()
     {
@@ -258,7 +258,7 @@ class Accessor
     /**
      * Get editDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEditDate()
     {
@@ -281,7 +281,7 @@ class Accessor
     /**
      * Get openUser
      *
-     * @return \itaw\UserBundle\Entity\User 
+     * @return \itaw\UserBundle\Entity\User
      */
     public function getOpenUser()
     {
@@ -304,7 +304,7 @@ class Accessor
     /**
      * Get editUser
      *
-     * @return \itaw\UserBundle\Entity\User 
+     * @return \itaw\UserBundle\Entity\User
      */
     public function getEditUser()
     {
@@ -337,10 +337,25 @@ class Accessor
     /**
      * Get domains
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDomains()
     {
         return $this->domains;
+    }
+
+    /**
+     * @param Domain $domain
+     * @return bool
+     */
+    public function hasDomain(Domain $domain)
+    {
+        foreach ($this->domains as $d) {
+            if ($d->getId() == $domain->getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

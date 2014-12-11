@@ -166,4 +166,100 @@ class AccessorController extends Controller
         return $this->redirectToRoute('accessors_collection');
     }
 
+    public function linkDomainAction(Request $request, $accessorId)
+    {
+        $accessor = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findOneById($accessorId);
+        $session = $request->getSession();
+
+        if (!$accessor) {
+            throw $this->createNotFoundException(sprintf('The Accessor with the ID %s was not found!', $accessorId));
+        }
+
+        $domains = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findBy(array('active' => true));
+
+        if (!$domains) {
+            $session->getFlashBag()->add('error', sprintf('No active Domains found!'));
+
+            return $this->redirectToRoute('accessors_object', array('accessorId' => $accessorId));
+        }
+
+        if ($request->get('sent', 0) == 1) {
+            $domain = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findOneById(
+                $request->get('domain')
+            );
+
+            if (!$domain) {
+                throw new BadRequestHttpException(sprintf('Domain not found!'));
+            }
+
+            if ($accessor->hasDomain($domain)) {
+                $session->getFlashBag()->add(
+                    'error',
+                    sprintf('The requested Domain is already linked with this Accessor!')
+                );
+
+                return $this->redirectToRoute(
+                    'accessors_domains_link',
+                    array(
+                        'accessorId' => $accessorId
+                    )
+                );
+            }
+
+            $accessor->addDomain($domain);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            //mail
+            $this->get('itaw.email')->sendAccessorLinkedDomainMail($accessor, $domain);
+
+            return $this->redirectToRoute('accessors_object', array('accessorId' => $accessorId));
+        }
+
+        return $this->render(
+            'itawAppBundle:Accessor:link.domain.html.twig',
+            array(
+                'accessor' => $accessor,
+                'domains' => $domains
+            )
+        );
+    }
+
+    public function unlinkDomainAction(Request $request, $accessorId, $domainId)
+    {
+        $accessor = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findOneById($accessorId);
+        $session = $request->getSession();
+
+        if (!$accessor) {
+            throw $this->createNotFoundException(sprintf('The Accessor with the ID %s was not found!', $accessorId));
+        }
+
+        $domain = $this->getDoctrine()->getRepository('itawDataBundle:Domain')->findOneById($domainId);
+
+        if (!$domain) {
+            throw $this->createNotFoundException(sprintf('The Domain with the ID %s was not found!', $domainId));
+        }
+
+        if ($request->get('sent', 0) == 1) {
+            $accessor->removeDomain($domain);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            //mail
+            $this->get('itaw.email')->sendAccessorUnLinkedDomainMail($accessor, $domain);
+
+            return $this->redirectToRoute('accessors_object', array('accessorId' => $accessorId));
+        }
+
+        return $this->render(
+            'itawAppBundle:Accessor:unlink.domain.html.twig',
+            array(
+                'accessor' => $accessor,
+                'domain' => $domain
+            )
+        );
+    }
+
 }

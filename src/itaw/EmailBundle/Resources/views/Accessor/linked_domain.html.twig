@@ -1,0 +1,34 @@
+{% extends 'itawEmailBundle::layout.html.twig' %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>
+        Accessor Domain Link
+        <small>Notice</small>
+    </h1>
+
+    <p>
+        Your Accessor <strong>{{ accessor.username }}</strong> was newly linked with following Domain:
+    </p>
+
+    <div class="container container-info">
+        {{ domain.name }}
+    </div>
+
+    {% if accessor.domains|length() > 0 %}
+        <div class="container container-info">
+            <strong>Your Accessor now has following links in total:</strong><br>
+
+            <ul>
+                {% for domain in accessor.domains %}
+                    <li>{{ domain.name }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    {% endif %}
+
+{% endblock %}
