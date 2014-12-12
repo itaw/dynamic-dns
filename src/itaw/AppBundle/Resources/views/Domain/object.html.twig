@@ -6,6 +6,54 @@
 
 {% block content %}
 
-    #
+    <h1>{{ domain.name }}</h1>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <h3>Linked Accessors</h3>
+
+            {% if domain.accessors|length() > 0 %}
+
+                <table class="table table-striped">
+                    {% for accessor in domain.accessors %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('accessors_object', {accessorId: accessor.id}) }}">
+                                    {{ accessor.username }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ accessor.email }}
+                            </td>
+                            <td>
+                                <a class="btn btn-link pull-right"
+                                   href="{{ path('accessors_domains_unlink', {accessorId: accessor.id, domainId: domain.id}) }}">
+                                    <i class="fa fa-unlink"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% else %}
+
+                <div class="alert alert-warning">
+                    No Accessor linked yet!
+                </div>
+
+            {% endif %}
+
+        </div>
+        <div class="col-lg-6">
+
+            {% set limit = 10 %}
+
+            <h3>Latest {{ limit }} IPs</h3>
+
+            {{ render(controller('itawAppBundle:DomainAddress:latest', {limit: limit})) }}
+
+        </div>
+    </div>
 
 {% endblock %}
