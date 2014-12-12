@@ -20,6 +20,10 @@ class DomainAddressController extends AbstractApiController
      */
     public function createAction(Request $request)
     {
+        //log request
+        $logger = $this->get('logger');
+        $logger->info($request->getRequestUri());
+
         //validate
         if ($request->get('domain', '') == ''
             || $request->get('username', '') == ''
