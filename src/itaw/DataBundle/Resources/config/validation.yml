@@ -8,3 +8,9 @@ itaw\DataBundle\Entity\Accessor:
             - NotBlank: ~
         email:
             - Email: ~
+itaw\DataBundle\Entity\DomainAddress:
+    properties:
+        ip:
+            - Ip: ~
+        sourceIp:
+            - NotBlank: ~

@@ -2,17 +2,17 @@
 
 namespace itaw\ApiBundle\Controller;
 
+use Doctrine\DBAL\Exception\ConstraintViolationException;
 use itaw\DataBundle\Entity\Accessor;
 use itaw\DataBundle\Entity\Domain;
 use itaw\DataBundle\Entity\DomainAddress;
 use itaw\Util\PasswordEncoder;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class DomainAddressController extends Controller
+class DomainAddressController extends AbstractApiController
 {
     /**
      * @param Request $request
@@ -22,8 +22,9 @@ class DomainAddressController extends Controller
     {
         //validate
         if ($request->get('domain', '') == ''
-            || $request->get('accessor', '') == ''
-            || $request->get('password', '') == ''
+            || $request->get('username', '') == ''
+            || $request->get('pass', '') == ''
+            || $request->get('ipaddr', '') == ''
         ) {
             throw new BadRequestHttpException(sprintf('All parameters must be provided!'));
         }
@@ -41,15 +42,15 @@ class DomainAddressController extends Controller
         //get accessor
         /** @var $accessor Accessor */
         $accessor = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findOneByUsername(
-            $request->get('accessor')
+            $request->get('username')
         );
 
         if (!$accessor) {
-            throw new AuthenticationException(sprintf('Bad Accessor Name %s!', $request->get('accessor')));
+            throw new AuthenticationException(sprintf('Bad Accessor Name %s!', $request->get('username')));
         }
 
         //prepare password
-        $encodedPassword = PasswordEncoder::encode($request->get('password'), $accessor->getSalt());
+        $encodedPassword = PasswordEncoder::encode($request->get('pass'), $accessor->getSalt());
 
         //check password
         if ($encodedPassword != $accessor->getPassword()) {
@@ -67,13 +68,25 @@ class DomainAddressController extends Controller
             );
         }
 
-        //add link
+        //add address
         $address = new DomainAddress();
         $address->setDomain($domain)
-            ->setIp('127.0.0.1')
+            ->setIp($request->get('ipaddr'))
             ->setSourceIp($request->getClientIp())
             ->setOpenDate(new \DateTime('now'));
 
-        return new Response(json_encode(array($address)));
+        //validate
+        $validator = $this->get('validator');
+        $errors = $validator->validate($address);
+        if (count($errors) > 0) {
+            throw new \Exception(sprintf((string)$errors));
+        }
+
+        //write
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($address);
+        $em->flush();
+
+        return new Response($this->serializeJson($address));
     }
 }
