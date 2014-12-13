@@ -17,6 +17,7 @@ class DomainAddressController extends AbstractApiController
     /**
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function createAction(Request $request)
     {
@@ -91,6 +92,13 @@ class DomainAddressController extends AbstractApiController
         $em->persist($address);
         $em->flush();
 
-        return new Response($this->serializeJson($address));
+        return new Response(
+            $this->serializeJson(
+                array(
+                    'status' => 'success',
+                    'message' => 'The Domain was refreshed'
+                )
+            )
+        );
     }
 }
