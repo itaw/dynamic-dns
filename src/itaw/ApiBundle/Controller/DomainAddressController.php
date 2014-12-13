@@ -2,7 +2,6 @@
 
 namespace itaw\ApiBundle\Controller;
 
-use Doctrine\DBAL\Exception\ConstraintViolationException;
 use itaw\DataBundle\Entity\Accessor;
 use itaw\DataBundle\Entity\Domain;
 use itaw\DataBundle\Entity\DomainAddress;
@@ -44,6 +43,10 @@ class DomainAddressController extends AbstractApiController
             throw new BadRequestHttpException(sprintf('The requested Domain is not configured!'));
         }
 
+        if (!$domain->getActive()) {
+            throw new BadRequestHttpException(sprintf('You requested an inactive Domain'));
+        }
+
         //get accessor
         /** @var $accessor Accessor */
         $accessor = $this->getDoctrine()->getRepository('itawDataBundle:Accessor')->findOneByUsername(
@@ -52,6 +55,10 @@ class DomainAddressController extends AbstractApiController
 
         if (!$accessor) {
             throw new AuthenticationException(sprintf('Bad Accessor Name %s!', $request->get('username')));
+        }
+
+        if (!$accessor->getActive()) {
+            throw new AuthenticationException(sprintf('The Accessor %s is inactive!', $accessor->getUsername()));
         }
 
         //prepare password
