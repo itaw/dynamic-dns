@@ -85,7 +85,8 @@ class DomainAddressController extends AbstractApiController
         $address->setDomain($domain)
             ->setIp($request->get('ipaddr'))
             ->setSourceIp($request->getClientIp())
-            ->setOpenDate(new \DateTime('now'));
+            ->setOpenDate(new \DateTime('now'))
+            ->setAccessor($accessor);
 
         //validate
         $validator = $this->get('validator');

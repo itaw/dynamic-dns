@@ -3,6 +3,7 @@
         <th>IP</th>
         <th>Source IP</th>
         <th>Domain</th>
+        <th>Accessor</th>
         <th>Date</th>
     </tr>
 
@@ -12,6 +13,7 @@
             <td>{{ address.ip }}</td>
             <td>{{ address.sourceIp }}</td>
             <td>{{ address.domain.name }}</td>
+            <td>{% if address.accessor is not null %}{{ address.accessor.username }}{% endif %}</td>
             <td>{{ address.openDate|date('d.m.Y G:i:s') }}</td>
         </tr>
 

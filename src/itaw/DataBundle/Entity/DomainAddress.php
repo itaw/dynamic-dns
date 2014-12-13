@@ -49,6 +49,12 @@ class DomainAddress
     private $domain;
 
     /**
+     * @ORM\OneToOne(targetEntity="Accessor")
+     * @ORM\JoinColumn(name="accessor_id", referencedColumnName="id")
+     */
+    private $accessor;
+
+    /**
      * Get id
      *
      * @return integer
@@ -148,5 +154,28 @@ class DomainAddress
     public function getDomain()
     {
         return $this->domain;
+    }
+
+    /**
+     * Set accessor
+     *
+     * @param \itaw\DataBundle\Entity\Accessor $accessor
+     * @return DomainAddress
+     */
+    public function setAccessor(\itaw\DataBundle\Entity\Accessor $accessor = null)
+    {
+        $this->accessor = $accessor;
+
+        return $this;
+    }
+
+    /**
+     * Get accessor
+     *
+     * @return \itaw\DataBundle\Entity\Accessor
+     */
+    public function getAccessor()
+    {
+        return $this->accessor;
     }
 }

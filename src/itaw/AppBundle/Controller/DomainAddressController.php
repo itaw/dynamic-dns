@@ -16,8 +16,11 @@ class DomainAddressController extends Controller
             $limit
         );
 
-        return $this->render('itawAppBundle:DomainAddress:latest.html.twig', array(
+        return $this->render(
+            'itawAppBundle:DomainAddress:latest.html.twig',
+            array(
                 'addresses' => $addresses
-            ));
+            )
+        );
     }
 }
