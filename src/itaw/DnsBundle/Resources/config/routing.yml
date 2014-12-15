@@ -1,0 +1,3 @@
+dns_redirect:
+    pattern: /
+    defaults: { _controller: itawDnsBundle:DnsRedirect:redirect }
