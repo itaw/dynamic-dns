@@ -2,15 +2,15 @@ itaw_api:
     resource: "@itawApiBundle/Resources/config/routing.yml"
     prefix:   /api
 
-itaw_dns:
-    resource: "@itawDnsBundle/Resources/config/routing.yml"
-    prefix:   /
-
 itaw_app:
     resource: "@itawAppBundle/Resources/config/routing.yml"
     prefix:   /config
     options:
         expose: true
+
+itaw_dns:
+    resource: "@itawDnsBundle/Resources/config/routing.yml"
+    prefix:   /
 
 _user_bundle:
     resource: "@itawUserBundle/Resources/config/routing.yml"
