@@ -26,11 +26,11 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~1.3",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
-        "jms/serializer-bundle": "~0.13",
-        "jenssegers/proxy": "~2.1"
+        "jms/serializer-bundle": "~0.13"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "jenssegers/proxy": "dev-master"
     },
     "scripts": {
         "post-root-package-install": [
